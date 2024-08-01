@@ -53,7 +53,9 @@ class HomeController extends AbstractController
         return new Response($request->getMethod());
     }
 
-    #[Route('/myenv', name: 'app_env')]
+    /**
+     *@Route("/myenv", name="app_env")
+     */
     public function envManage()
     {
         $appEnv    =   $_ENV['DB_PASS'];
@@ -79,6 +81,4 @@ class HomeController extends AbstractController
         dump($sender);
         return new Response("GET ENV");
     }
-
-   
 }

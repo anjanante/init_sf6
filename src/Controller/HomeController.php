@@ -8,11 +8,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 class HomeController extends AbstractController
 {
     public function __construct(
         private ContainerBagInterface $params,
+        private RouterInterface $router
     ) {
     }
     
@@ -88,5 +90,16 @@ class HomeController extends AbstractController
         dump($id);
         dump($name);
         return new Response("GET URL PARAM");
+    }
+
+    #[Route('/pages', name: 'app_pages')]
+    public function allPages()
+    {
+        $routeCollection = $this->router->getRouteCollection();
+        $routes = [];
+        foreach ($routeCollection as $routeName => $route) {
+            $routes[$routeName] = $route->getPath();
+        }
+        return $this->render('pages.html.twig', compact('routes'));
     }
 }

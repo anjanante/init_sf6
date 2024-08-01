@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -33,5 +34,16 @@ class HomeController extends AbstractController
     public function myLinkedin(): RedirectResponse
     {
         return $this->redirect('https://www.linkedin.com/in/nante-rajaona/');
+    }
+
+    #[Route('/myrequest', name: 'app_request')]
+    public function requestManage(Request $request)
+    {
+        $all    =   $request->query->all();
+        $get    =   $request->query->get('my-key');
+        $post   =   $request->request->get('my-key');
+        dump($get);
+        dump($all);
+        return new Response($request->getMethod());
     }
 }

@@ -81,4 +81,12 @@ class HomeController extends AbstractController
         dump($sender);
         return new Response("GET ENV");
     }
+
+    #[Route('/myurlparameter/{id<\d+>}/{name}', name: 'app_urlparameters')]
+    public function urlParametersManage(int $id,string $name)
+    {
+        dump($id);
+        dump($name);
+        return new Response("GET URL PARAM");
+    }
 }
